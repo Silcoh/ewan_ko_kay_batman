@@ -1,0 +1,137 @@
+:root {
+  --primary: #fff;
+  --bg-color: rgb(5, 53, 61);
+  --bg-envelope-color: #f5edd1;
+  --envelope-tab: #ecdeb8;
+  --envelope-cover: #e6cfa7;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --txt-color: #444;
+  --heart-color: rgb(252, 8, 231);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url('pink-flowers-green-leaves-white-background_961875-182156.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.container > .envelope-wrapper {
+  background: var(--bg-envelope-color);
+  box-shadow: 0 0 40px var(--shadow-color);
+  position: relative; /* Added to position the letter correctly */
+}
+
+.envelope-wrapper > .envelope {
+  position: relative;
+  width: 450px;
+  height: 380px;
+  z-index: 1; /* Envelope is behind the letter */
+}
+
+.envelope-wrapper > .envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 1; /* Envelope flap is behind the letter */
+  border-top: 190px solid var(--envelope-tab);
+  border-right: 225px solid transparent;
+  border-left: 225px solid transparent;
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.7s;
+}
+
+.envelope-wrapper > .envelope::after {
+  content: "";
+  position: absolute;
+  z-index: 1; /* Envelope base is behind the letter */
+  width: 0px;
+  height: 0px;
+  border-top: 190px solid transparent;
+  border-right: 225px solid var(--envelope-cover);
+  border-bottom: 160px solid var(--envelope-cover);
+  border-left: 225px solid var(--envelope-cover);
+}
+
+.envelope > .letter {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  background: var(--primary);
+  text-align: left;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 0 5px var(--shadow-color);
+  padding: 10px;
+  font-size: 16px;
+  overflow: auto;
+  word-break: break-word;
+  white-space: pre-wrap;
+  z-index: 2; /* Letter is in front of the envelope */
+}
+
+.envelope > .letter > .text {
+  font-family: sans-serif;
+  color: var(--txt-color);
+}
+
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--heart-color);
+  z-index: 4;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
+  box-shadow: 0 1px 6px var(--shadow-color);
+  cursor: pointer;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--heart-color);
+  border-radius: 50%;
+}
+
+.heart:before {
+  top: -10px;
+}
+
+.heart:after {
+  right: 10px;
+}
+
+.flap > .envelope:before {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.flap > .envelope > .letter {
+  bottom: 100px;
+  transform: scale(1.5);
+  transition-delay: 1s;
+}
+
+.flap > .heart {
+  transform: rotate(90deg);
+  transition-delay: 0.4s;
+}
